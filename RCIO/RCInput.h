@@ -33,7 +33,7 @@
 
 #ifdef RECEIVER
 //Using a receiver on the Raspberry Pi
-#include <Common/Util.h>
+#include <Util/Util.h>
 #endif
 
 #ifdef JOYSTICK
@@ -71,6 +71,13 @@
 #endif
 
 #ifdef RCTECH
+#define STICK_MAX 1800. //uS
+#define STICK_MIN 1318. //uS
+#define STICK_MID 1500. //uS
+#define IDLE 1200. //uS
+#endif
+
+#ifdef FLYSKY
 #define STICK_MAX 1800. //uS
 #define STICK_MIN 1318. //uS
 #define STICK_MID 1500. //uS
