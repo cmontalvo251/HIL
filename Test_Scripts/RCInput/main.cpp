@@ -1,4 +1,4 @@
-#include "RCInput.h"
+#include <RCIO/RCInput.h>
 
 //In the make file you need to have -DJOYSTICK defined
 
@@ -27,9 +27,13 @@ int main() {
 	//You then need to initialize the Controller by running initialize
 	rcin.initialize(); //The default is 8 input channels
 
+	int i = 0;
 	while (1) {
+		printf("i = %d ",i);
+		i++;
 		rcin.readRCstate(); // This will read the current state of the USB controller
-		rcin.printRCstate(1); //This will print everything including buttons if they have been found
+		rcin.printRCstate(1); //This will print everything including buttons if they have been found		
+		usleep(10000);
 	}
 	return 0;
 };
