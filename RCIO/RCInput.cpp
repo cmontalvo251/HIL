@@ -169,7 +169,11 @@ void RCInput::mapjoy2rx() {
 
 void RCInput::printRCstate(int all) {
   //printf("Axis State = ");
-  for (x = 0;x<num_of_axis;x++){
+  int val = num_of_axis;
+  if (all < 0) {
+    val = -all;
+  }
+  for (x = 0;x<val;x++){
     printf("%d ",rxcomm[x]);
   }
   #ifdef JOYSTICK
@@ -180,7 +184,7 @@ void RCInput::printRCstate(int all) {
     }
   }
   #endif
-  printf("\n");
+  //printf("\n");
 }
 
 #ifdef RECEIVER

@@ -28,6 +28,9 @@ class IMU {
   void setOrientation(double,double,double,double,double,double);
   void setTemperature(double);
   void loop(double,double);
+  void printALL();
+  void printEuler();
+  void printRates();
 };
 
 #endif

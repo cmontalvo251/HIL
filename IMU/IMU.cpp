@@ -95,3 +95,16 @@ void IMU::loop(double elapsedTime,double s){
   pitch_rate = gy_filtered;
   yaw_rate = gz_filtered;
 }
+
+void IMU::printALL() {
+  printEuler();
+  printRates();
+}
+
+void IMU::printEuler() {
+  printf("%lf %lf %lf ",roll,pitch,yaw);
+}
+
+void IMU::printRates() {
+  printf("%lf %lf %lf ",roll_rate,pitch_rate,yaw_rate);
+}
