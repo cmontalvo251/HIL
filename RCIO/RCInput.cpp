@@ -57,6 +57,18 @@ void RCInput::setStick(int val) {
   }
 }
 
+void RCInput::LostCommCheck() {
+  int lostcomms = 0;
+  for (int idx = 0;idx<4;idx++) {
+    if (rxcomm[idx] == 0) {
+      lostcomms = 1;
+    }
+  }
+  if (lostcomms == 1) {
+    setStickNeutral();
+  }
+}
+
 void RCInput::setStickNeutral() {
   setStick(STICK_MIN); //First set all sticks to min
   //but then set the Aileron, Elevator and Rudder to mid
@@ -101,6 +113,8 @@ void RCInput::readRCstate()
   #ifdef SIMONLY
   setStickNeutral();
   #endif
+
+  LostCommCheck();
 }
 
 int RCInput::invert(int val) {

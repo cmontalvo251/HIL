@@ -107,6 +107,7 @@ public:
 private:
     int open_axis(int ch);
     int read_axis(int ch);
+    void LostCommCheck();
 };
 
 #endif
