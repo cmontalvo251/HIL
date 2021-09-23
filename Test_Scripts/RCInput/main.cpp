@@ -32,7 +32,9 @@ int main() {
 		printf("i = %d ",i);
 		i++;
 		rcin.readRCstate(); // This will read the current state of the USB controller
-		rcin.printRCstate(1); //This will print everything including buttons if they have been found		
+		rcin.printRCstate(1); //This will print everything including buttons if they have been found
+		printf("\n");
+		
 		usleep(10000);
 	}
 	return 0;

@@ -78,9 +78,9 @@
 #endif
 
 #ifdef FLYSKY
-#define STICK_MAX 1800. //uS
-#define STICK_MIN 1318. //uS
-#define STICK_MID 1500. //uS
+#define STICK_MAX 2016. //uS
+#define STICK_MIN 992. //uS
+#define STICK_MID 1502. //uS
 #define IDLE 1200. //uS
 #endif
 
