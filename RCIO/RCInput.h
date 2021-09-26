@@ -38,29 +38,12 @@
 
 #ifdef JOYSTICK
 #include <linux/joystick.h>
-//Using Microsoft X-Box 360 pad 
-//Throttle = 1 (inv)
-//Rudder = 0 
-//Aileron =  3
-//Elevator = 4
-//Left Trigger = 2
-//Right Trigger = 5
-//UD Dpad = 7
-//LR Dpad = 6
 #endif
 
 //Leaving these defines here just in case. Some are for RPi and some are for joystick
 #define RCIN_SYSFS_PATH "/sys/kernel/rcio/rcin"
 #define JOY_DEV "/dev/input/js0"
 #define NAME_LENGTH 80
-
-///SERVO VALUES
-/*
-#define STICK_MAX 2016. //uS
-#define STICK_MIN 992. //uS
-#define STICK_MID 1504. //uS
-#define IDLE 1200. //uS
-*/
 
 //Default simonly vals
 #ifdef XBOX
