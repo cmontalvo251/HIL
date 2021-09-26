@@ -3,7 +3,10 @@ CFLAGS=-c -w
 LIB_DIRS=-L../../ 
 INCLUDES=-I../../
 SOURCES=main.cpp ../../RCIO/RCInput.cpp
-DFLAGS=-DJOYSTICK -DXBOX
+####ON DESKTOP DO THE FOLLOWING
+#DFLAGS=-DDESKTOP -DSIL -DXBOX
+###ON RASPBERRY PI DO THE FOLLOWING
+DFLAGS=-DRPI -DAUTO -DFLYSKY
 #This means all the objects are the sources except replace .cpp with .o
 OBJECTS=$(SOURCES:.cpp=.o) 
 EXECUTABLE=RCInput.exe

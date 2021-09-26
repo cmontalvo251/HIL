@@ -52,6 +52,7 @@ void RCInput::initialize() {
 }
 
 void RCInput::setStick(int val) {
+  //printf("Setting stick to neutral \n");
   for (int idx = 0;idx<num_of_axis;idx++) {
     rxcomm[idx] = val; //STICK_MIN #define
   }
@@ -85,6 +86,7 @@ int RCInput::bit2PWM(int val) {
 void RCInput::readRCstate()
 {
   #ifdef RECEIVER
+  //printf("Reading from Receiver \n");
   for (int idx = 0;idx<num_of_axis;idx++) {
     rxcomm[idx] = read_axis(idx);
   }
@@ -93,7 +95,7 @@ void RCInput::readRCstate()
   #ifdef JOYSTICK
   if (joy_fd != -1) {
     // cout << "Current time = " <<  << endl;
-    // cout << "Reading Joystick state \n";
+    //cout << "Reading Joystick state \n";
     read(joy_fd,&js,sizeof(struct js_event));
     // cout << "What is the joystick state? \n";
     switch (js.type & ~JS_EVENT_INIT) {
