@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -w 
 LIB_DIRS=-L../../ 
 INCLUDES=-I../../
-SOURCES=main.cpp ../../RCIO/RCOutput.cpp
+SOURCES=main.cpp ../../RCIO/RCOutput.cpp ../../RCIO/PWM.cpp ../../Util/Util.cpp
 DFLAGS=-DDESKTOP
 #This means all the objects are the sources except replace .cpp with .o
 OBJECTS=$(SOURCES:.cpp=.o) 
@@ -20,6 +20,8 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	echo ' ' > ../../RCIO/d.o
 	rm ../../RCIO/*.o
+	echo ' ' > ../../Util/d.o
+	rm ../../Util/*.o
 	rm -rf *.o $(EXECUTABLE)
 rebuild:
 	make clean
