@@ -120,13 +120,18 @@ void AHRS::updateNOMAG(float ax,float ay,float az,float gx,float gy,float gz,flo
   ax /= GEARTH;
   ay /= GEARTH;
   az /= GEARTH;
-  gx *= (180 / PI) * 0.0175;
-  gy *= (180 / PI) * 0.0175;
-  gz *= (180 / PI) * 0.0175;
 
-  gx -= gyroOffset[0];
-  gy -= gyroOffset[1];
-  gz -= gyroOffset[2];
+  //This below is a whole bunch of BS and is not needed. I'm not even sure why this is in here
+  //180/pi * 0.0175 = 1.00286 which is practically 1.0
+  //printf(" gx,gy,gz B = %lf %lf %lf ",gx,gy,gz);
+  //gx *= (180 / PI) * 0.0175;
+  //gy *= (180 / PI) * 0.0175;
+  //gz *= (180 / PI) * 0.0175;
+  //printf(" gx,gy,gz A = %lf %lf %lf ",gx,gy,gz);
+
+  //gx -= gyroOffset[0];
+  //gy -= gyroOffset[1];
+  //gz -= gyroOffset[2];
 
   // Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)
   if(!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f))) {
