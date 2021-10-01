@@ -14,6 +14,7 @@ class RCOutput {
 public:
     RCOutput(); //constructor
     void initialize(int);
+    void saturation_block();
     void write();
     int *pwmcomms=NULL;
     int NUMSIGNALS;

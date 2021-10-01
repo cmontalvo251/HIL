@@ -41,6 +41,8 @@ void RCOutput::initialize(int num) {
 
 //Write function
 void RCOutput::write() {
+	//Make sure we don't send ridiculous commands
+	saturation_block();
   //Write the pwm signals in comms but only loop until comms.getRow()
   for (int i = 0;i<NUMSIGNALS;i++) {
     float us = pwmcomms[i];
@@ -49,4 +51,16 @@ void RCOutput::write() {
     pwm.set_duty_cycle(i,us/1000.0);
     #endif
   } 
+}
+
+void RCOutput::saturation_block() {
+  for (int idx=0;idx<NUMSIGNALS;idx++) {
+    float val = pwmcomms[idx];
+    if (val > OUTMAX) {
+    	pwmcomms[idx] = OUTMAX;
+    }
+    if (val < OUTMIN) {
+    	pwmcomms[idx] = OUTMIN;
+    }
+  }
 }
