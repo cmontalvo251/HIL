@@ -156,7 +156,7 @@ void RCInput::mapjoy2rx() {
   //LR Dpad = 6
   rxcomm[0] = invert(joycomm[1]);
   rxcomm[1] = joycomm[3];
-  rxcomm[2] = joycomm[4];
+  rxcomm[2] = invert(joycomm[4]);
   rxcomm[3] = joycomm[0];
   rxcomm[4] = joycomm[2];
   rxcomm[5] = joycomm[5];
