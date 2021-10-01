@@ -64,3 +64,9 @@ void RCOutput::saturation_block() {
     }
   }
 }
+
+void RCOutput::print() {
+  for (int idx = 0;idx<NUMSIGNALS;idx++) {
+    printf("%d ",pwmcomms[idx]);
+  }
+}

@@ -18,6 +18,7 @@ public:
     void write();
     int *pwmcomms=NULL;
     int NUMSIGNALS;
+    void print();
 private:
     PWM pwm;
 };
