@@ -29,6 +29,7 @@ class GPS {
   void ConvertGPS2XY();
   void ConvertXYZ2LLH();
   void setXYZ(double,double,double);
+  void setOrigin(double,double);
 };
 
 #endif

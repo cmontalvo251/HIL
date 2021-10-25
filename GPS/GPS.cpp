@@ -49,8 +49,7 @@ void GPS::poll(float currentTime,int FILEOPEN) {
       computeSpeed(currentTime);
     } else {
       //otherwise set the origin
-      X_origin = latitude;
-      Y_origin = longitude;
+      setOrigin(latitude,longitude);
     }
   }
   //else {
@@ -63,6 +62,11 @@ void GPS::poll(float currentTime,int FILEOPEN) {
   //time_vec.disp();
     
 }	  
+
+void GPS::setOrigin(double latitude,double longitude) {
+  X_origin = latitude;
+  Y_origin = longitude;
+}
 
 void GPS::setXYZ(double Xin,double Yin,double Zin) {
   X = Xin;
