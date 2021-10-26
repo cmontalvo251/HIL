@@ -62,7 +62,7 @@ void IMU::setTemperature(double tempin) {
   temperature = tempin;
 }
 
-void IMU::loop(double elapsedTime,double s){
+void IMU::loop(double elapsedTime){
   #ifndef DESKTOP
   mpulsm->update();
   mpulsm->read_accelerometer(&ax, &ay, &az);
@@ -80,7 +80,11 @@ void IMU::loop(double elapsedTime,double s){
   ahrs.updateNOMAG(ax,ay,az,gx,gy,gz,elapsedTime);
   ahrs.getEuler(&pitch,&roll,&yaw);
   #endif
+  //Call the filter
+  filter();
+}
 
+void IMU::filter() {
   //Bumblebee has a first order filter using a Tustin Transformation
   //but that is for the motor signals. Apparently the filter works well for all 8 motors
   //but fails when you shut off motors. If we were to implement that filter we would
@@ -94,6 +98,7 @@ void IMU::loop(double elapsedTime,double s){
   //Float value got moved as an input so we can change it easier.
   //Note that s = 0 is totally unfiltered and s = 1 is overfiltering
   //printf(" gx,gy,gz A = %lf %lf %lf ",gx,gy,gz);
+  double s = FilterConstant; //This is set externally or initialized to zero
   gx_filtered = gx_filtered*s + (1-s)*gy*RAD2DEG;
   gy_filtered = gy_filtered*s + (1-s)*gx*RAD2DEG;
   gz_filtered = gz_filtered*s + (1-s)*(-gz)*RAD2DEG;
