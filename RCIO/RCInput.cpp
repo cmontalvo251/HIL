@@ -80,6 +80,7 @@ void RCInput::setStickNeutral() {
 
 int RCInput::bit2PWM(int val) {
   ///the values from the joystick are from -32678 to 32768 which is a 16 bit number
+  //printf("val = %d \n");
   return (STICK_MAX-STICK_MID)*val/32768.0 + STICK_MID;
 }
 
@@ -120,10 +121,16 @@ void RCInput::readRCstate()
 }
 
 int RCInput::invert(int val) {
+  int out;
   //A value that is STICK_MIN will produce STICK_MAX and viceversa
-  int delta = val - STICK_MID;
-  int inverse = -delta;
-  int out = STICK_MID + inverse;
+  if (val != 0) {
+    int delta = val - STICK_MID;
+    int inverse = -delta;
+    out = STICK_MID + inverse;
+  } else {
+    //A value of zero means loss of signal
+    out = 0;
+  }
   return out;
 }
 
@@ -162,6 +169,10 @@ void RCInput::mapjoy2rx() {
   rxcomm[5] = joycomm[5];
   rxcomm[6] = joycomm[7];
   rxcomm[7] = joycomm[6];
+  //printf("PRINTING::");
+  //printRCstate(0);
+  //printf("joycomm[4] = %d \n",joycomm[4]);
+  //printf("rxcomm[2] = %d \n",rxcomm[2]);
   #endif
 
   #ifdef RCTECH
