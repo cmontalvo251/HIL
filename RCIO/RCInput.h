@@ -45,26 +45,16 @@
 #define JOY_DEV "/dev/input/js0"
 #define NAME_LENGTH 80
 
-//Default simonly vals
-#ifdef XBOX
-#define STICK_MAX 2000. //uS
-#define STICK_MIN 1000. //uS
-#define STICK_MID 1500. //uS
-#define IDLE 1200. //uS
-#endif
-
-#ifdef RCTECH
-#define STICK_MAX 1800. //uS
-#define STICK_MIN 1318. //uS
-#define STICK_MID 1500. //uS
-#define IDLE 1200. //uS
-#endif
-
-#ifdef FLYSKY
+///DEFAULT STICK_MAX AND MIN
 #define STICK_MAX 2016. //uS
 #define STICK_MIN 992. //uS
 #define STICK_MID 1502. //uS
 #define IDLE 1200. //uS
+
+#ifdef RCTECH
+#define BIT_RANGE 16000
+#else
+#define BIT_RANGE 32768
 #endif
 
 class RCInput {

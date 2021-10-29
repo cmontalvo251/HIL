@@ -81,7 +81,7 @@ void RCInput::setStickNeutral() {
 int RCInput::bit2PWM(int val) {
   ///the values from the joystick are from -32678 to 32768 which is a 16 bit number
   //printf("val = %d \n");
-  return (STICK_MAX-STICK_MID)*val/32768.0 + STICK_MID;
+  return (STICK_MAX-STICK_MID)*val/BIT_RANGE + STICK_MID;
 }
 
 void RCInput::readRCstate()
