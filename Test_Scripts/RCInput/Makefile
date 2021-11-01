@@ -5,8 +5,9 @@ INCLUDES=-I../../
 SOURCES=main.cpp ../../RCIO/RCInput.cpp
 ####ON DESKTOP DO THE FOLLOWING
 #DFLAGS=-DDESKTOP -DSIL -DXBOX
+DFLAGS=-DDESKTOP -DSIL -DRCTECH
 ###ON RASPBERRY PI DO THE FOLLOWING
-DFLAGS=-DRPI -DAUTO -DFLYSKY
+#DFLAGS=-DRPI -DAUTO -DFLYSKY
 #This means all the objects are the sources except replace .cpp with .o
 OBJECTS=$(SOURCES:.cpp=.o) 
 EXECUTABLE=RCInput.exe

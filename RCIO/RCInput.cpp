@@ -101,6 +101,9 @@ void RCInput::readRCstate()
     // cout << "What is the joystick state? \n";
     switch (js.type & ~JS_EVENT_INIT) {
     case JS_EVENT_AXIS:
+      //if (js.number == 5) {
+      //  printf("js.value and number = %d %d \n",js.number,js.value);
+      //}
       joycomm[js.number] = bit2PWM(js.value);
       break;
     case JS_EVENT_BUTTON:
