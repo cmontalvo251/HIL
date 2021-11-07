@@ -9,11 +9,14 @@
 #define NGPS 25
 
 class GPS {
+ private:
+    double GPSnextTime = 0; //Assume you always start at zero
+    double GPSupdateRate = 4.0; //every 4 seconds
  public:
   std::vector<double> pos_data,nav_data;
   //X AND Y are Hardcoded to be zero initially and the origin point
   //is roughly set to Mobile
-  double latitude,longitude,altitude,X=0,Y=0,Z=0,xprev,yprev,zprev,X_origin=30.69,Y_origin=-88.17;
+  double latitude,longitude,altitude,X=0,Y=0,Z=0,xprev=0,yprev=0,zprev=0,X_origin=30.69,Y_origin=-88.17;
   double headingFilterConstant = 0.5;
   double heading;
   Ublox sensor;
