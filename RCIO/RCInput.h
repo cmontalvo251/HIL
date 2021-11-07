@@ -28,7 +28,9 @@
 //?Running in Realtime on Desktop
 //If HIL - RPI handles comms
 #if defined (SIL) && (DESKTOP)
+#ifndef KEYBOARD
 #define JOYSTICK
+#endif
 #endif
 
 #ifdef RECEIVER
@@ -74,6 +76,7 @@ public:
     
     int joy_fd=-1,*joycomm=NULL,*rxcomm=NULL,*axis_id=NULL,num_of_axis=0,num_of_buttons=0,x;
     char *button = NULL,name_of_joystick[NAME_LENGTH];
+    double keyboard[8]; //do max 8 just in case
     #ifdef JOYSTICK
     struct js_event js;
     #endif

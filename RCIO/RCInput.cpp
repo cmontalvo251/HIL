@@ -86,6 +86,19 @@ int RCInput::bit2PWM(int val) {
 
 void RCInput::readRCstate()
 {
+  #ifdef KEYBOARD
+  for (int idx = 0;idx<num_of_axis;idx++) {
+    //printf("%lf ",keyboard[idx]);
+    if (idx<4) {
+      rxcomm[idx] = keyboard[idx]*(STICK_MAX-STICK_MIN)/2.0 + STICK_MID;
+    } else {
+      rxcomm[idx] = STICK_MIN;
+    }
+  }
+  //printf("\n");
+  //printRCstate(-4);
+  #endif
+
   #ifdef RECEIVER
   //printf("Reading from Receiver \n");
   for (int idx = 0;idx<num_of_axis;idx++) {
