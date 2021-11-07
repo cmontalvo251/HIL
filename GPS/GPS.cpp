@@ -2,6 +2,14 @@
 #include <math.h>
 
 GPS::GPS() {
+  if (headingFilterConstant < 0) {
+    headingFilterConstant = 0;
+  }
+  if (headingFilterConstant > 1.0) {
+    headingFilterConstant = 1.0;
+  }
+
+
   #ifndef DESKTOP
   if(sensor.testConnection()){
     printf("Ublox test OK\n");
@@ -46,7 +54,7 @@ void GPS::poll(float currentTime,int FILEOPEN) {
     altitude = pos_data[3]/1000.0; ///height above ellipsoid 1984?
     //If the measurement is good and the file is open we need to compute speed as well.
     if (FILEOPEN) {
-      computeSpeed(currentTime);
+      computeGroundTrack(currentTime);
     } else {
       //otherwise set the origin
       setOrigin(latitude,longitude);
@@ -110,6 +118,63 @@ void GPS::ConvertGPS2XY(){
   }
 }
 
+void GPS::computeGroundTrack(double current_time) {
+  //First convert the current measurement to XY
+  ConvertGPS2XY();
+  //Then proceed with the speed measurement
+  double dx = X - xprev;
+  double dy = Y - yprev;
+  dist = sqrt((pow(dx,2)) + (pow(dy,2)));
+  ///Also get heading
+  double heading_new = atan2(dy,dx)*180.0/M_PI;
+
+  //Filter heading
+  heading = (1-headingFilterConstant)*heading_new + heading*headingFilterConstant;
+
+  int em1;
+  //Get previous value
+  em1 = end_pt - 1;
+
+  if (em1 == 0) {
+    em1 = NGPS;
+  }
+  
+  double previous_distance = dist_vec.get(em1,1);
+  double new_distance = dist + previous_distance;
+  dist_vec.set(end_pt,1,new_distance);
+
+  time_vec.set(end_pt,1,current_time/1000000.0);
+
+  double del_dist = dist_vec.get(end_pt,1) - dist_vec.get(start_pt,1);
+  double del_time = time_vec.get(end_pt,1) - time_vec.get(start_pt,1);
+
+  //printf("%lf %lf %lf %lf %lf %lf \n",dist_vec.get(end_pt,1),dist_vec.get(start_pt,1),time_vec.get(end_pt,1),time_vec.get(start_pt,1),del_dist,del_time);
+  
+  speed = del_dist/del_time;
+  
+  end_pt += 1;
+  start_pt += 1;
+  
+  if (end_pt > NGPS) {
+    end_pt = 1;
+  }
+  if (start_pt > NGPS){
+    start_pt = 1;
+  }
+
+  //UPDATE PREVIOUS VALUES
+  xprev = X;
+  yprev = Y;
+  zprev = Z;
+}
+
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+/////////DO NOT EDIT THIS ROUTINE IT IS JUST HERE FOR BACKWARDS COMPATIBILITY
 void GPS::computeSpeed(double current_time) {
   //First convert the current measurement to XY
   ConvertGPS2XY();

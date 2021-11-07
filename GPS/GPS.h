@@ -14,6 +14,8 @@ class GPS {
   //X AND Y are Hardcoded to be zero initially and the origin point
   //is roughly set to Mobile
   double latitude,longitude,altitude,X=0,Y=0,Z=0,xprev,yprev,zprev,X_origin=30.69,Y_origin=-88.17;
+  double headingFilterConstant = 0.5;
+  double heading;
   Ublox sensor;
   int ok;
   int end_pt = NGPS;
@@ -26,6 +28,7 @@ class GPS {
   void poll(float,int);
   int status();
   void computeSpeed(double);
+  void computeGroundTrack(double);
   void ConvertGPS2XY();
   void ConvertXYZ2LLH();
   void setXYZ(double,double,double);
