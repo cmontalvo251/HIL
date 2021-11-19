@@ -1,3 +1,5 @@
+Serial/*/*.txt
+
 # Prerequisites
 *.d
 *.pyc
