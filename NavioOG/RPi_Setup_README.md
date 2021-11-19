@@ -13,6 +13,16 @@ ok fuck vi. using nano again.
 
 2.) Expand file system - sudo raspi-config expand filesystem - Dont use Gparted!!!
 
+---------HEY FROM 2021---------------
+
+All the repos got messed up so you need to run 
+
+sudo apt update
+
+instead of apt-get
+
+-----------------------------------
+
 3.) sudo apt-get install gfortran - just to test if internet was working
 
 4.) Can't get gedit or emacs and I don't want to learn vi (Scroll down to 32 I actually got emacs-nox to work) 
@@ -153,7 +163,7 @@ together.
 raspi-config. The caps lock key is probably done using xmodmap
 commands. Ok actually you need to edit this file 
 
-Sudo /etc/default/keyboard
+sudo nano /etc/default/keyboard
 
 Edit the file to have this
 
@@ -163,6 +173,8 @@ And then run
 sudo dpkg-reconfigure keyboard-configuration
 
 Just hit ok for everything.
+
+then sudo reboot now
 
 33.) Oh yea on emacs to get ctrl-enter to work you need to add a .emacs file
 
