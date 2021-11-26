@@ -562,6 +562,10 @@ class MPU9250:
 
     def getALL(self):
         a,g,m = self.getMotion9()
+        temp = self.temperature
+        rpy = self.imufusion(a,g,m)
+        return a,g,rpy,temp
+    def imufusion(self,a,g,m):
         ay = a[0]
         ax = a[1]
         az = a[2]
@@ -571,13 +575,11 @@ class MPU9250:
         by = m[1]
         bz = m[2]
         psi = np.arctan((bz*np.sin(phi)-by*np.cos(phi))/(bx*np.cos(theta)+by*np.sin(theta)*np.sin(phi)+bz*np.sin(theta)*np.cos(phi)))
-        temp = self.temperature
         roll = phi * 180.0/np.pi
         pitch = theta * 180.0/np.pi
         yaw = psi * 180.0/np.pi
         rpy = [roll,pitch,yaw]
-
-        return a,g,rpy,temp
+        return rpy
 
     def getMotion9(self):
         self.read_all()
