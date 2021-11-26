@@ -7,6 +7,11 @@ class GPS():
         self.latitude = -99
         self.longitude = -99
         self.altitude = -99
+        self.NM2FT=6076.115485560000
+        self.FT2M=0.3048
+        self.GPSVAL = 60.0*self.NM2FT*self.FT2M
+        self.latO = 33.16
+        self.lonO = -88.1
     def initialize(self):
         self.ubl = UBLX.UBlox("spi:0.0", baudrate=5000000, timeout=2)
 
@@ -85,3 +90,13 @@ class GPS():
 #            outstr = "".join(outstr)
 #            print(outstr)
         return
+
+    def setOrigin(self,latO,lonO):
+        self.latO = latO
+        self.lonO = lonO
+
+    def convertXYZ2LATLON(self,x,y,z):
+        self.lat = x/self.GPSVAL + self.latO
+        self.lon = y/(self.GPSVAL*np.cos(self.latO*np.pi/180)) + self.lonO
+        self.alt = -z
+        return self.lat,self.lon,self.alt

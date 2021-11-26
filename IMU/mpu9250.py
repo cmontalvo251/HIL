@@ -581,6 +581,30 @@ class MPU9250:
         rpy = [roll,pitch,yaw]
         return rpy
 
+    def R123(self,phi,theta,psi):
+        #%compute R such that v(inertial) = R v(body)
+        #%Compute sines and cosines
+        ctheta = np.cos(theta);
+        stheta = np.sin(theta);
+        sphi = np.sin(phi);
+        cphi = np.cos(phi);
+        spsi = np.sin(psi);
+        cpsi = np.cos(psi);
+        #%Kinematics
+        R = np.array([[ctheta*cpsi,sphi*stheta*cpsi-cphi*spsi,cphi*stheta*cpsi+sphi*spsi],[ctheta*spsi,sphi*stheta*spsi+cphi*cpsi,cphi*stheta*spsi-sphi*cpsi],[-stheta,sphi*ctheta,cphi*ctheta]]);
+        return R
+
+    def convertRPY2RAW(self,r,p,y):
+        phi = r*np.pi/180.0
+        theta = p*np.pi/180.0
+        psi = y*np.pi/180.0
+        R = self.R123(phi,theta,psi)
+        aI = np.array([0,0,9.81])
+        mI = np.array([300,0,0])
+        aB = np.matmul(R,aI)
+        mB = np.matmul(R,mI)
+        return aB,mB
+
     def getMotion9(self):
         self.read_all()
         m9a = self.accelerometer_data
